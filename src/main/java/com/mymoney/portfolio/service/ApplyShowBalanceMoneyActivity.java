@@ -25,8 +25,8 @@ public class ApplyShowBalanceMoneyActivity implements ApplyMoneyActivity {
         Map<Integer, String> assetClassBalance = new HashMap<>();
         Month transactionMonth = activityTransactionCommand.getDate().getMonth();
         assetClassTypeMap.forEach((assetClassType, assetClasses) -> {
-            assetClassBalance.put(assetClassType.value, "" + DecimalFormatter.getDoubleValue(assetClasses.get(0).getLastBalanceOfMonth(transactionMonth)));
+            assetClassBalance.put(assetClassType.value, "" + DecimalFormatter.getDoubleValue(assetClasses.get(0).getLastBalanceOfMonth(transactionMonth)).longValue());
         });
-        logger.log(Level.INFO, String.join(" ", assetClassBalance.values()));
+        System.out.println(String.join(" ", assetClassBalance.values()));
     }
 }

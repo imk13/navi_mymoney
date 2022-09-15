@@ -24,20 +24,20 @@ public class ApplyReBalanceMoneyActivity implements ApplyMoneyActivity {
     static Logger logger = Logger.getLogger(ApplyReBalanceMoneyActivity.class.getName());
     @Override
     public void execute(Portfolio portfolio, TransactionCommand activityTransactionCommand) {
-        List<String> assetClassBalance = new ArrayList<>();
+        Double portfolioBalance = portfolio.getBalance();
         for(AssetClass assetClass : portfolio.getAssetClassList()) {
             int len = assetClass.getTransactions().size();
             Transaction lastTransaction = assetClass.getTransactions().get(len-1);
             activityTransactionCommand.setDate(lastTransaction.getTransactionDate());
             if(len >= 6 && (lastTransaction.getTransactionDate().getMonth() == Month.JUNE || lastTransaction.getTransactionDate().getMonth() == Month.DECEMBER)) {
-                Transaction reBalancedTransaction = new Transaction(TransactionType.REBALANCE, DecimalFormatter.getDoubleValue(portfolio.getBalance() * assetClass.getShare()), activityTransactionCommand.getDate());
+                Transaction reBalancedTransaction = new Transaction(TransactionType.REBALANCE, DecimalFormatter.getDoubleValue(portfolioBalance * assetClass.getShare()), activityTransactionCommand.getDate());
                 assetClass.addTransaction(reBalancedTransaction);
             }else{
-                logger.log(Level.INFO, "CANNOT_REBALANCE");
+                System.out.println("CANNOT_REBALANCE");
                 return;
             }
         }
-        logger.log(Level.INFO, "Balance after Re-Balancing of portfolio");
+        //logger.log(Level.INFO, "Balance after Re-Balancing of portfolio");
         new ApplyShowBalanceMoneyActivity().execute(portfolio, activityTransactionCommand);
     }
 }

@@ -18,6 +18,8 @@ import java.util.logging.Logger;
 public class Main {
     static Logger logger = Logger.getLogger(Main.class.getName());
     public static void main(String[] args) throws IOException {
+        String filePath = args.length > 0 ? args[0] : "sample_input/input2.txt";
+
         //Sample code to read from file passed as command line argument
         String userId1 = UserService.createUser("Mike");
         PortfolioService portfolioService = new PortfolioService();
@@ -26,7 +28,7 @@ public class Main {
         FileInputStream fis = null;
         try {
             // the file to be opened for reading
-            fis = new FileInputStream("sample_input/input2.txt");
+            fis = new FileInputStream(filePath);
             Scanner sc = new Scanner(fis); // file to be scanned
             // returns true if there is another line to read
             while (sc.hasNextLine()) {
