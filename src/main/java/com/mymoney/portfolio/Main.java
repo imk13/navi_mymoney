@@ -58,9 +58,9 @@ public class Main {
             Map<AssetClassType, Transaction> transactionMap = new HashMap<>();
 
             if(Arrays.asList(TransactionType.ALLOCATE, TransactionType.SIP, TransactionType.CHANGE).contains(transactionType)) {
-                equityAmount = Double.valueOf(transactionInfo.get(1));
-                debtAmount = Double.valueOf(transactionInfo.get(2));
-                goldAmount = Double.valueOf(transactionInfo.get(3));
+                equityAmount = Double.valueOf(transactionInfo.get(1).replace("%", ""));
+                debtAmount = Double.valueOf(transactionInfo.get(2).replace("%", ""));
+                goldAmount = Double.valueOf(transactionInfo.get(3).replace("%", ""));
             }
 
             if(transactionType == TransactionType.CHANGE) {
